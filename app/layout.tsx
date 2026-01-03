@@ -9,8 +9,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Git Contributions",
-  description: "Visualize your GitHub contribution history",
+  title: "git-glow",
+  description: "Visualize your GitHub contribution history with a terminal aesthetic",
 };
 
 export default function RootLayout({

@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# git-glow
 
-## Getting Started
+Visualize your GitHub contribution history with a terminal aesthetic.
 
-First, run the development server:
+![git-glow](https://img.shields.io/badge/terminal-aesthetic-00ff88?style=flat-square)
 
+## Features
+
+- **Yearly Trends** - Area chart showing contributions over time (excludes incomplete current year)
+- **Monthly Breakdown** - Bar chart with year selector for granular analysis
+- **Stats Dashboard** - Total contributions, years active, average per year, best year
+- **Terminal Aesthetic** - Neon green, scanlines, vignette, JetBrains Mono font
+- **Persistent Auth** - Username and token saved to localStorage
+
+## Setup
+
+1. Clone and install:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ledbetterljoshua/github-contributions.git
+cd github-contributions
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Create a GitHub Personal Access Token:
+   - Go to https://github.com/settings/tokens/new?scopes=read:user
+   - Only needs `read:user` scope
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the dev server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open http://localhost:3000, enter your GitHub username and token
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js 16](https://nextjs.org/) with App Router
+- [Recharts](https://recharts.org/) for data visualization
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [GitHub GraphQL API](https://docs.github.com/en/graphql)
+- [PostHog](https://posthog.com/) for analytics
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables (Optional)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For analytics, create `.env.local`:
 
-## Deploy on Vercel
+```
+NEXT_PUBLIC_POSTHOG_KEY=your_key
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

@@ -318,7 +318,7 @@ export default function Home() {
                         borderRadius: '8px',
                         color: '#e8e8e8',
                       }}
-                      formatter={(value: number) => [value.toLocaleString(), 'Contributions']}
+                      formatter={(value) => [Number(value).toLocaleString(), 'Contributions']}
                     />
                     <Area
                       type="monotone"
@@ -387,7 +387,7 @@ export default function Home() {
                       }}
                       labelStyle={{ color: '#e8e8e8' }}
                       itemStyle={{ color: '#00ff88' }}
-                      formatter={(value: number) => [value.toLocaleString(), 'Contributions']}
+                      formatter={(value) => [Number(value).toLocaleString(), 'Contributions']}
                     />
                     <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                       {monthChartData.map((entry, index) => (
