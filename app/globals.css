@@ -1,26 +1,158 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-deep: #0a0b0e;
+  --bg-surface: #12131a;
+  --bg-elevated: #1a1c25;
+
+  --terminal-green: #00ff88;
+  --terminal-green-dim: #00cc6a;
+  --contribution-low: #1e3a2f;
+  --contribution-med: #2d6b4f;
+  --contribution-high: #3fb97a;
+  --contribution-max: #00ff88;
+
+  --accent-orange: #ff6b35;
+  --accent-blue: #4a9eff;
+
+  --text-primary: #e8e8e8;
+  --text-secondary: #888;
+  --text-tertiary: #555;
+
+  --border: #2a2d38;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-jetbrains), monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
+/* Scanline effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, 0.01) 2px,
+    rgba(0, 255, 136, 0.01) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Subtle vignette */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-green-dim);
+}
+
+/* Selection */
+::selection {
+  background: var(--terminal-green);
+  color: var(--bg-deep);
+}
+
+/* Animations */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--terminal-green), 0 0 20px var(--terminal-green), 0 0 30px var(--terminal-green);
+  }
+  50% {
+    text-shadow: 0 0 5px var(--terminal-green), 0 0 10px var(--terminal-green);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in-up 0.6s ease-out backwards;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out backwards;
+}
+
+.cursor-blink::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  color: var(--terminal-green);
+}
+
+.glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Contribution cell colors */
+.contrib-0 { background: var(--bg-surface); }
+.contrib-1 { background: var(--contribution-low); }
+.contrib-2 { background: var(--contribution-med); }
+.contrib-3 { background: var(--contribution-high); }
+.contrib-4 { background: var(--contribution-max); box-shadow: 0 0 8px var(--terminal-green); }
